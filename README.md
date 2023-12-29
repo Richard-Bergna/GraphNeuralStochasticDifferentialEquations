@@ -1,1 +1,2 @@
-# GraphNeuralStochasticDifferentialEquations
+# Graph Neural Stochastic Differential Equations
+
