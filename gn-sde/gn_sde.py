@@ -11,7 +11,7 @@ def _stable_division(a, b, epsilon=1e-7):
 
 class LatentGraphSDE(torchsde.SDEIto):
 
-    def __init__(self, in_net, drift_net, out_net, theta=1.0, mu=0.0, sigma=0.1, adaptive=False, method="srk", rtol =0.001, atol = 0.001, sde_output_dim=64, t0=0, t1=0.01, device=None):
+    def __init__(self, in_net, drift_net, out_net, theta=1.0, mu=0.0, sigma=0.1, adaptive=False, method="srk", rtol =0.001, atol = 0.001, sde_output_dim=64, t0=0, t1=0.01, device=None, opt=None):
         super(LatentGraphSDE, self).__init__(noise_type="diagonal")
         
         
@@ -48,7 +48,7 @@ class LatentGraphSDE(torchsde.SDEIto):
         self.ts_vis = torch.tensor([t0, t1]).float().to(self.device)    
         self.t0 = t0
         self.t1 = t1
-        
+        self.opt = opt
 
     def f(self, t, y):  # Approximate posterior drift.
         if t.dim() == 0:
@@ -76,6 +76,14 @@ class LatentGraphSDE(torchsde.SDEIto):
         g_logqp = torch.zeros(y.shape[0], 1).to(y)
         return torch.cat([g, g_logqp], dim=1)
     
+    @property
+    def py0_std(self):
+        return torch.exp(.5 * self.py0_logvar)
+
+    @property
+    def qy0_std(self):
+        return torch.exp(.5 * self.qy0_logvar)
+    
     def _init_brownian_motion(self, batch_size, aug_y0):
         # We need space-time Levy area to use the SRK solver
         bm =  torchsde.BrownianInterval(
@@ -86,8 +94,9 @@ class LatentGraphSDE(torchsde.SDEIto):
             levy_area_approximation='space-time'
         )
         return bm
+
     
-    def forward(self, ts, eps=None):
+    def forward(self, ts):
         batch_size = ts.shape[0]
         qy0 = distributions.Normal(loc=self.qy0_mean, scale=self.qy0_std)
         py0 = distributions.Normal(loc=self.py0_mean, scale=self.py0_std)
@@ -114,12 +123,6 @@ class LatentGraphSDE(torchsde.SDEIto):
         logqp = (logqp0 + logqp_path).mean(dim=0)  # KL(t=0) + KL(path).
         return ys, logqp
 
-    @property
-    def py0_std(self):
-        return torch.exp(.5 * self.py0_logvar)
 
-    @property
-    def qy0_std(self):
-        return torch.exp(.5 * self.qy0_logvar)
 
 
