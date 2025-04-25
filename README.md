@@ -1,2 +1,2 @@
-# Graph Neural Stochastic Differential Equations
+# Latent Graph Neural Stochastic Differential Equations
 
