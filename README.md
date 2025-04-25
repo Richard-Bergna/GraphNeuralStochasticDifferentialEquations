@@ -11,7 +11,6 @@ This repository contains the code for **“Uncertainty Modeling in Graph Neural 
 - Combines **Graph Neural Networks** with **Stochastic Differential Equations** to learn uncertainty-aware node embeddings.
 - Quantifies both **aleatoric** (data) and **epistemic** (model) uncertainty via a Bayesian prior–posterior SDE in latent space.
 - Provides **theoretical guarantees** on well-posedness, variance bounds, and robustness to input perturbations.
-- Demonstrates state-of-the-art performance on out-of-distribution detection, noise robustness, and active learning across five benchmark graph datasets.
 
 ## 📂 Repository Structure
 
