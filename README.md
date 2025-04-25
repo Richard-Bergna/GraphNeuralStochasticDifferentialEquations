@@ -1,11 +1,10 @@
 # Latent Graph Neural SDEs (LGNSDE)
 
-This repository contains the code for **“Uncertainty Modeling in Graph Neural Networks via Stochastic Differential Equations”**, published at ICLR 2025. We introduce **Latent Graph Neural SDEs (LGNSDEs)**, a novel framework that
+This repository contains the code for **“Uncertainty Modeling in Graph Neural Networks via Stochastic Differential Equations”**. We introduce **Latent Graph Neural SDEs (LGNSDEs)**, a novel framework that
 
 - Combines **Graph Neural Networks** with **Stochastic Differential Equations** to learn uncertainty-aware node embeddings.
 - Quantifies both **aleatoric** (data) and **epistemic** (model) uncertainty via a Bayesian prior–posterior SDE in latent space.
 - Provides **theoretical guarantees** on well-posedness, variance bounds, and robustness to input perturbations.
-
 
 
 ## 📜 Citation
