@@ -1,4 +1,5 @@
 # Latent Graph Neural SDEs (LGNSDE)
+![LGNSDE Demo](assets/demo.gif)
 
 This repository contains the code for **“Uncertainty Modeling in Graph Neural Networks via Stochastic Differential Equations”**. We introduce **Latent Graph Neural SDEs (LGNSDEs)**, a novel framework that
 
